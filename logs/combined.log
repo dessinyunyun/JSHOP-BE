@@ -133,3 +133,16 @@
 {"email":"cek@gmail.com","level":"info","message":"Login attempt:","timestamp":"2025-06-11T17:03:38.947Z"}
 {"isValid":true,"level":"info","message":"Password validation:","timestamp":"2025-06-11T17:03:39.033Z"}
 {"level":"info","message":"Login successful:","timestamp":"2025-06-11T17:03:39.034Z","userId":"e3a3d3a2-ace5-45fc-b007-f3c3784450d2"}
+{"level":"info","message":"Database connection has been established successfully.","timestamp":"2025-06-11T17:06:11.786Z"}
+{"level":"info","message":"Database synced","timestamp":"2025-06-11T17:06:11.876Z"}
+{"level":"info","message":"Server is running on port 5000","timestamp":"2025-06-11T17:06:11.878Z"}
+{"email":"admin@example.com","level":"info","message":"Login attempt:","timestamp":"2025-06-11T17:06:45.868Z"}
+{"isValid":true,"level":"info","message":"Password validation:","timestamp":"2025-06-11T17:06:45.970Z"}
+{"level":"info","message":"Login successful:","timestamp":"2025-06-11T17:06:45.973Z","userId":"1"}
+{"email":"tes@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-06-11T17:07:05.135Z","username":"test"}
+{"isOperational":true,"level":"error","message":"Registration error: User with this email or username already exists","stack":"Error: User with this email or username already exists\n    at UserService.<anonymous> (C:\\Users\\habib\\OneDrive\\Documents\\dessi project\\be-jhop\\src\\services\\userService.ts:33:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Users\\habib\\OneDrive\\Documents\\dessi project\\be-jhop\\src\\services\\userService.ts:38:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":400,"timestamp":"2025-06-11T17:07:05.145Z"}
+{"isOperational":true,"level":"error","message":"Unhandled error: User with this email or username already exists","stack":"Error: User with this email or username already exists\n    at UserService.<anonymous> (C:\\Users\\habib\\OneDrive\\Documents\\dessi project\\be-jhop\\src\\services\\userService.ts:33:13)\n    at Generator.next (<anonymous>)\n    at fulfilled (C:\\Users\\habib\\OneDrive\\Documents\\dessi project\\be-jhop\\src\\services\\userService.ts:38:58)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","statusCode":400,"timestamp":"2025-06-11T17:07:05.146Z"}
+{"email":"tes@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-06-11T17:07:11.437Z","username":"tes"}
+{"email":"tes@gmail.com","level":"info","message":"Login attempt:","timestamp":"2025-06-11T17:07:18.374Z"}
+{"isValid":true,"level":"info","message":"Password validation:","timestamp":"2025-06-11T17:07:18.475Z"}
+{"level":"info","message":"Login successful:","timestamp":"2025-06-11T17:07:18.477Z","userId":"808bb187-f6c6-4e30-8499-a13587058d44"}
