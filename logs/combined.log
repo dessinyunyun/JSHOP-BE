@@ -1,0 +1,7 @@
+{"level":"info","message":"Database connection has been established successfully.","timestamp":"2025-06-11T12:52:25.305Z"}
+{"level":"info","message":"Database synced","timestamp":"2025-06-11T12:52:25.364Z"}
+{"level":"info","message":"Server is running on port 5000","timestamp":"2025-06-11T12:52:25.366Z"}
+{"email":"testing@gmail.com","level":"info","message":"Login attempt:","timestamp":"2025-06-11T12:54:35.995Z"}
+{"found":true,"level":"info","message":"User found:","timestamp":"2025-06-11T12:54:36.001Z","userEmail":"testing@gmail.com","userId":"e84f2d72-c5eb-4bf6-836e-b2460170a724","userRole":"user"}
+{"isValid":true,"level":"info","message":"Password validation:","timestamp":"2025-06-11T12:54:36.077Z"}
+{"level":"info","message":"Login successful:","timestamp":"2025-06-11T12:54:36.080Z","userId":"e84f2d72-c5eb-4bf6-836e-b2460170a724"}
