@@ -41,43 +41,35 @@ export const login = async (
     const { email, password } = req.body;
     logger.info('Login attempt:', { email });
 
-    // First, check if password was provided
     if (!password) {
       throw new ValidationError('Password is required');
     }
 
-    // Get user WITH password field included
     const user = await userService.findByEmailWithPassword(email);
-    logger.info('User found:', {
-      found: !!user,
-      userId: user?.id,
-      userEmail: user?.email,
-      userRole: user?.role,
-    });
-
     if (!user) {
       logger.warn('Login failed: User not found');
       throw new UnauthorizedError('Invalid credentials');
     }
 
-    // Verify password exists in user object
-    if (!user.password) {
-      logger.warn('Login failed: User password not set');
-      throw new UnauthorizedError('Invalid credentials');
-    }
+    logger.debug('User found for login', {
+      userId: user.id,
+      storedHash: user.password ? 'exists' : 'missing',
+    });
 
-    // Compare passwords
-    const isValidPassword = await bcrypt.compare(password, user.password);
+    const isValidPassword = await userService.verifyPassword(user, password);
     logger.info('Password validation:', {
       isValid: isValidPassword,
     });
 
     if (!isValidPassword) {
-      logger.warn('Login failed: Invalid password');
+      logger.warn('Login failed: Invalid password', {
+        userId: user.id,
+        inputPassword: password,
+        storedHash: user.password,
+      });
       throw new UnauthorizedError('Invalid credentials');
     }
 
-    // Create token
     if (!JWT_CONFIG.secret) {
       logger.error('JWT secret is not configured');
       throw new Error('JWT secret is not configured');
@@ -89,7 +81,6 @@ export const login = async (
       { expiresIn: JWT_CONFIG.expiresIn }
     );
 
-    // Remove password before sending response
     const userWithoutPassword = {
       id: user.id,
       username: user.username,

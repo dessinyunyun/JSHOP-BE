@@ -35,8 +35,9 @@ export class UserService {
       );
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    console.log('Creating user with data:', data);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(data.password, salt);
 
     // Create user
     const user = await User.create({
@@ -46,6 +47,7 @@ export class UserService {
       role: UserRole.USER,
     });
 
+    logger.debug('User created', { userId: user.id });
     return user;
   }
 
@@ -55,7 +57,7 @@ export class UserService {
     }
     return User.findOne({
       where: { email },
-      attributes: { exclude: ['password'] }, // Exclude password by default
+      attributes: { exclude: ['password'] },
     });
   }
 
@@ -64,7 +66,7 @@ export class UserService {
       throw new ValidationError('User ID is required');
     }
     return User.findByPk(id, {
-      attributes: { exclude: ['password'] }, // Exclude password by default
+      attributes: { exclude: ['password'] },
     });
   }
 
@@ -78,7 +80,6 @@ export class UserService {
       throw new ValidationError('User not found');
     }
 
-    // Check if new email or username already exists
     if (data.email || data.username) {
       const existingUser = await User.findOne({
         where: {
@@ -86,7 +87,7 @@ export class UserService {
             data.email ? { email: data.email } : {},
             data.username ? { username: data.username } : {},
           ],
-          id: { [Op.ne]: id }, // Exclude current user
+          id: { [Op.ne]: id },
         },
       });
 
@@ -102,9 +103,17 @@ export class UserService {
     if (!email) {
       throw new ValidationError('Email is required');
     }
-    return User.findOne({
+    return User.unscoped().findOne({
+      // Use unscoped to ensure password is included
       where: { email },
-      attributes: { include: ['password'] }, // Explicitly include password
     });
+  }
+
+  async verifyPassword(user: User, password: string): Promise<boolean> {
+    if (!user.password) {
+      logger.warn('No password set for user', { userId: user.id });
+      return false;
+    }
+    return bcrypt.compare(password, user.password);
   }
 }
