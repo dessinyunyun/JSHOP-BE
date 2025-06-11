@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 export enum UserRole {
   ADMIN = 'admin',
-  USER = 'user'
+  USER = 'user',
 }
 
 interface UserAttributes {
@@ -64,28 +64,14 @@ User.init(
     indexes: [
       {
         unique: true,
-        fields: ['username']
+        fields: ['username'],
       },
       {
         unique: true,
-        fields: ['email']
-      }
+        fields: ['email'],
+      },
     ],
-    hooks: {
-      beforeCreate: async (user: User) => {
-        if (user.password) {
-          const salt = await bcrypt.genSalt(10);
-          user.password = await bcrypt.hash(user.password, salt);
-        }
-      },
-      beforeUpdate: async (user: User) => {
-        if (user.changed('password')) {
-          const salt = await bcrypt.genSalt(10);
-          user.password = await bcrypt.hash(user.password, salt);
-        }
-      },
-    },
   }
 );
 
-export default User; 
+export default User;
